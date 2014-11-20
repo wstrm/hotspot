@@ -1,0 +1,20 @@
+{
+  "name": "hotspot",
+  "version": "0.0.0",
+  "description": "Hotspot landing page",
+  "private": true,
+  "main": "hotspot.js",
+  "scripts": {
+    "start": "node ./bin/hotspot",
+    "test": "mocha"
+  },
+  "author": "William Wennerström <william@megalicious.org>",
+  "license": "GPLv3",
+  "dependencies": {
+    "body-parser": "^1.9.2",
+    "debug": "^2.1.0",
+    "express": "^4.10.2",
+    "jade": "^1.7.0",
+    "serve-favicon": "^2.1.7"
+  }
+}

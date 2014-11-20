@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h3 Välkommen till #{title}
+
+  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+  h3 Registrera
+  form(action='/register', method='post')
+    div
+      label(for='fullname') Namn:
+      input(type='text', id='fullname', name='fullname', placeholder='John Doe')
+
+    div
+      label(for='macaddress') MAC adress:
+      input(type='text', id='macaddress', name='macaddress', placeholder='01:23:45:67:89:ab')
+
+    div
+      button(type='submit') Skicka
