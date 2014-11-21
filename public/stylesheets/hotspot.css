@@ -1,15 +1,69 @@
 html {
-  color: #222;
-  font-size: 1em;
   line-height: 1.4;
 }
 
 body {
-  width: 35em;
   margin: 0 auto;
   font-family: Tahoma, Verdana, Arial, sans-serif;
 }
 
 p.center {
   text-align: center;
+}
+
+@media only screen and (min-width : 320px) {
+  body {
+    width: 90%;
+  }
+
+  input, textarea, select, button {
+    width : 100%;
+    margin: 0 auto;
+
+    -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+    -moz-box-sizing: border-box; /* For all Gecko based browsers */
+    box-sizing: border-box;
+  }
+}
+
+@media only screen and (min-width : 480px) {
+  
+  body {
+    width: 80%;
+  }
+ 
+  form, input, textarea, select, button {
+    width : 400px;
+    margin: 0 auto;
+  }  
+}
+
+@media only screen and (min-width : 768px) {
+  body {
+    width: 70%;
+  }
+  form, input, textarea, select, button {
+    width : 360px;
+    margin: 0 auto;
+  }  
+}
+
+@media only screen and (min-width : 992px) {
+  body {
+    width: 45em;
+  }
+  form, input, textarea, select, button {
+    width : 320px;
+    margin: 0 auto;
+  }  
+}
+
+@media only screen and (min-width : 1200px) {
+  body {
+    width: 35em;
+  }
+  form, input, textarea, select, button {
+    width : 280px;
+    margin: 0 auto;
+  }  
 }

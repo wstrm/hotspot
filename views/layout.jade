@@ -4,11 +4,14 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/hotspot.css')
   body
-    h1= title
-    hr
+    #main-wrapper
+      #inner-wrapper
+        h1= title
+        hr
 
-    block content
+        block content
 
-    hr
-    em Kontakt: 
-      a(href='mailto:info@htsit.se') info@htsit.se
+        hr
+        p.center
+          em Kontakt: 
+            a(href='mailto:info@htsit.se') info@htsit.se
