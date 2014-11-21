@@ -15,6 +15,9 @@ hotspot.use(bodyParser.json());
 hotspot.use(bodyParser.urlencoded({ extended: false }));
 //hotspot.use(favicon());
 
+/* Configuration */
+hotspot.enable('trust proxy');
+
 /* Routes */
 var index = require('./routes/index'),
     register = require('./routes/register');
