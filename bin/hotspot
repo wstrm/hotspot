@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-var debug = require('debug')('hotspot');
 var hotspot = require('../server/index');
 
 hotspot.set('port', process.env.PORT || 3535);
@@ -9,5 +8,5 @@ var server = hotspot.listen(hotspot.get('port'), function() {
   var host = server.address().address,
       port = server.address().port;
 
-  debug('Listening at http://%s:%s', host, port);
+  console.log('[HOTSPOT] Listening at http://%s:%s', host, port);
 });
