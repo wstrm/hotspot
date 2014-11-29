@@ -1,12 +1,17 @@
+- var err = #{err}
 extends layout
 
 block content
+
   h3 Välkommen till #{title}
 
-  p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  p #{title} är ett CJDNS baserat nätverk, för att kunna ansluta måste du köra CJDNS och även registrera din e-post och MAC-adress. 
 
   h3 Registrera
   form(action='/register', method='post')
+    if err
+      h4 Kunde inte hitta MAC-adress för din dator, skriv in den manuellt.
+
     div
       label(for='fullname') Namn:
       br
