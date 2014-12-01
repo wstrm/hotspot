@@ -8,7 +8,7 @@ Hotspot landing page for HTSIT
 `npm start` (You'll need access to run arping)
 
 ## Test
-Before you run tests you'll need a active network connection,
+Before you run tests you'll need an active network connection,
 and also access to run arping.
 
 Run tests with
