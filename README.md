@@ -5,6 +5,7 @@ Hotspot landing page for HTSIT
 
 ## Deploy
 `npm install`
+
 `npm start` (You'll need access to run arping)
 
 ## Test
