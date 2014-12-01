@@ -6,6 +6,7 @@
   "main": "hotspot.js",
   "scripts": {
     "start": "node ./bin/hotspot",
+    "install": "node ./bin/make",
     "test": "mocha"
   },
   "author": "William Wennerström <william@megalicious.org>",
@@ -18,6 +19,7 @@
     "serve-favicon": "^2.1.7"
   },
   "devDependencies": {
+    "clean-css": "^2.2.19",
     "mocha": "^2.0.1",
     "netroute": "^0.2.5"
   }

@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+var ccss = require('clean-css'),
+    fs = require('fs');
+
+function cleanCss(file, result) {
+  fs.readFile(file, function(err, data) {
+    if (err) {
+      throw err;
+    } else {
+      console.log('[MAKE] Minify', file);
+      var minified = new ccss().minify(String(data));
+      return result(minified);
+    }
+  });
+}
+
+function writeCss(file, data) {
+  fs.writeFile(file, data, function(err) {
+    if (err) {
+      throw err;
+    } else {
+      console.log('[MAKE] Successfully written', file);
+    }
+  });
+}
+
+function minifyCss(file, dest) {
+  cleanCss(file, function(minified) {
+    writeCss(dest, minified);
+  });  
+}
+
+minifyCss(__dirname + '/../public/src/stylesheets/hotspot.css', __dirname + '/../public/build/stylesheets/hotspot.css');
