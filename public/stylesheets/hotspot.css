@@ -11,6 +11,24 @@ p.center {
   text-align: center;
 }
 
+h1 {
+  margin-bottom: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline;
+}
+
+li a {
+  margin-right: 10px;
+}
+
 @media only screen and (min-width : 320px) {
   body {
     width: 90%;

@@ -20,9 +20,11 @@ hotspot.enable('trust proxy');
 
 /* Routes */
 var index = require('./routes/index'),
-    register = require('./routes/register');
+    register = require('./routes/register'),
+    help = require('./routes/help');
 hotspot.use('/', index);
 hotspot.use('/register', register);
+hotspot.use('/help', help);
 
 /* Error handlers */
 // Catch 404
