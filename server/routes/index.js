@@ -11,7 +11,8 @@ function getMAC(iface, ip, callback) {
     child.kill('SIGHUP'); // Kill the arping process
     callback('Arping timeout for ' + ip, null);
   }, 5000);
-  
+ 
+  // You'll get a timeout for arping if you're on localhost
   child = exec('arping -f -I ' + iface + ' ' + ip + ' | /bin/egrep -o \[0-9A-F:\]\{17\}', function (err, stdout, stderr) {
     if (err) {
       clearTimeout(checkResp);
