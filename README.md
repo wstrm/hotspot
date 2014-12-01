@@ -1,4 +1,4 @@
-Hotspot
+Hotspot [![Build Status](https://magnum.travis-ci.com/willeponken/hotspot.svg?token=TMVJTB3BnSL4Jxv4iPGq)](https://magnum.travis-ci.com/willeponken/hotspot)
 =======
 
 Hotspot landing page for HTSIT
