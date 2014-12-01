@@ -1,5 +1,5 @@
 var hotspot = require('../lib/hotspot.js'),
-    net = require('netroute');
+    net = require('netroute'),
     assert = require('assert');
 
 describe('hotspot', function() {
