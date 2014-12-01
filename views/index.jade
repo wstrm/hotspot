@@ -18,7 +18,10 @@ block content
       input(type='text', id='fullname', name='fullname', placeholder='John Doe')
 
     div
-      label(for='macaddress') MAC adress:
+      label(for='macaddress')
+        | MAC-adress (
+        a(href='/help/#get-mac-address') ?
+        | ):
       br
       input(type='text', id='macaddress', name='macaddress', placeholder='01:23:45:67:89:ab', value='#{mac}')
 
