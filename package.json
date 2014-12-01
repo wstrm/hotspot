@@ -16,5 +16,9 @@
     "express": "^4.10.2",
     "jade": "^1.7.0",
     "serve-favicon": "^2.1.7"
+  },
+  "devDependencies": {
+    "mocha": "^2.0.1",
+    "netroute": "^0.2.5"
   }
 }
