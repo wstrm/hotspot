@@ -6,7 +6,7 @@ router.get('/', function(req, res) {
 
   hotspot.getMAC('wifi0', req.ip, function(err, mac) {
     if (err) {
-      console.warn('[getMac] Warning:', err);
+      console.error(err);
       res.render('index', {
         title: 'HTSIT Hotspot',
         err: true,
