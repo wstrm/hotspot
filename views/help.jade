@@ -6,7 +6,7 @@ block content
 
   h3#get-mac-address Hur får jag tag i min MAC-adress?
   h4 Windows
-  p Skriv i kommandoprompten (CMD):
+  p Skriv i kommandotolken (CMD):
 
   pre ipconfig /all
   p Kopiera sedan texten efter HWAddr som ungefär ser ut såhär (under trådlös adapter):
@@ -18,11 +18,11 @@ block content
   p Skriv:
 
   pre ifconfig | grep wlan0
-  p Och kopiera texten efter HWaddr som ungefär ser ut såhär:
+  p Kopiera texten efter HWaddr som ungefär ser ut såhär:
 
   pre ab:bc:cd:de:ef:fg
   h4 Android
-  p Under inställningar, gå till WiFi. Tryck på meny knappen, välj Avancerat och kopiera MAC adressen:
+  p Under inställningar, gå till WiFi. Tryck på meny-knappen, välj Avancerat och kopiera MAC-adressen:
 
   pre 11:22:33:44:55:66
 
@@ -55,12 +55,12 @@ block content
     li
       a(href='#lelele') 32-bit
 
-  p Extrahera arkivet på en lämplig plats, starta sedan en kommandoprompt (CMD) och skriv:
+  p Extrahera arkivet på en lämplig plats, starta sedan en kommandotolk (CMD) och skriv:
 
   pre
     | CD "mappen som arkivet extraherats till"
 
-  p Starta sedan CJDNS med:
+  p Starta sedan CJDNS med
 
   pre cjdroute < cjdroute.conf
 
@@ -70,15 +70,15 @@ block content
 
   h4 Linux
 
-  p Börja med att hämta arkivet från GitHub:
+  p Börja med att hämta arkivet från GitHub med
 
   pre wget https://github.com/cjdelisle/cjdns/archive/master.zip
 
-  p Placera arkrivet i en lämplig mapp, extrahera sedan:
+  p Placera arkrivet i en lämplig mapp, extrahera sedan
 
   pre unzip master.zip
 
-  p Gå in i den extraherade mappen, kompilera och konfigurera CJDNS med:
+  p Gå in i den extraherade mappen, kompilera och konfigurera CJDNS med
 
   pre ./do && ./cjdroute --genconf > cjdroute.conf
 
