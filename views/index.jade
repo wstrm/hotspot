@@ -8,7 +8,7 @@ block content
   p #{title} är ett CJDNS baserat nätverk, för att kunna ansluta måste du köra CJDNS och även registrera din e-post och MAC-adress. 
 
   h3 Registrera
-  form(action='/register', method='post')
+  form(action='/register', method='post', enctype='multipart/form-data')
     if err
       h4 Kunde inte hitta din MAC-adress, skriv in den manuellt istället.
 
@@ -35,5 +35,13 @@ block content
       br
       input(type='text', id='macaddress', name='macaddress', placeholder='01:23:45:67:89:ab', value='#{mac}')
 
+    div
+      label(for='cjdnsconfig')
+        | CJDNS-konfigurationsfil (
+        a(href='/help/#get-cjdns-config') ?
+        | ):
+      br
+      input(type='file', id='cjdnsconfig', name='cjdnsconfig')
+    
     div
       button(type='submit') Skicka
