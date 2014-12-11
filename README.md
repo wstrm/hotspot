@@ -1,4 +1,4 @@
-Hotspot (Work in Progress) [![Build Status](https://magnum.travis-ci.com/willeponken/hotspot.svg?token=TMVJTB3BnSL4Jxv4iPGq)](https://magnum.travis-ci.com/willeponken/hotspot)
+Hotspot (Work in Progress) [![Build Status](https://travis-ci.org/willeponken/hotspot.svg)](https://travis-ci.org/willeponken/hotspot)
 =======
 
 Captive portal for the CJDNS-based HTSIT network.
