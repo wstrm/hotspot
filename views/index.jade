@@ -36,12 +36,12 @@ block content
       input(type='text', id='macaddress', name='macaddress', placeholder='01:23:45:67:89:ab', value='#{mac}')
 
     div
-      label(for='cjdnsconfig')
-        | CJDNS-konfigurationsfil (
-        a(href='/help/#get-cjdns-config') ?
+      label(for='pubkey')
+        | CJDNS-public key (
+        a(href='/help/#get-pubkey') ?
         | ):
       br
-      input(type='file', id='cjdnsconfig', name='cjdnsconfig')
+      input(type='text', id='pubkey', name='pubkey')
     
     div
       button(type='submit') Skicka
