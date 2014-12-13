@@ -8,7 +8,7 @@ describe('hotspot', function() {
       
       // Will only work if you're connected to a network
       var netInfo = net.getInfo().IPv4[0] || net.getInfo().IPv6[0];
-      hotspot.getMAC(netInfo.interface, netInfo.gateway, './test/assets/arp', function resp(err, mac) {
+      hotspot.getMAC(netInfo.interface, '0.0.0.0', './test/assets/arp', function resp(err, mac) {
         assert.equal(err, null);
         assert.equal(typeof mac, 'string');
         done();
