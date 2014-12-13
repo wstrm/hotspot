@@ -4,7 +4,7 @@ var express = require('express'),
 
 router.get('/', function(req, res) {
 
-  hotspot.getMAC('wifi0', req.ip, function(err, mac) {
+  hotspot.getMAC('wifi0', req.ip, '/proc/net/arp', function(err, mac) {
     if (err) {
       console.error(err);
       res.render('index', {
