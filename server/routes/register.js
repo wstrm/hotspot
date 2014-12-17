@@ -4,6 +4,7 @@ var express = require('express'),
 
 router.post('/', function(req, res) {
   var errorHandler = new hotspot.errorHandler(res);
+  var credFactory = new hotspot.credFactory('config/hotspot.json');
   var userData = req.body;
   
   console.log('[/register] New registration:', userData);
@@ -12,7 +13,7 @@ router.post('/', function(req, res) {
     if (err) {
       return errorHandler(err);
     } else {
-      hotspot.createCred(hash, userData, function newCred(err, userCred, serverCred) {
+      credFactory.create(hash, userData, function newCred(err, userCred, serverCred) {
         res.render('register', { cred: userCred });
       });
     }
