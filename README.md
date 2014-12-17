@@ -20,7 +20,5 @@ I appreciate contributions, but also scolding for mistakes, etc.
 `npm start`
 
 ## Test
-Before you run tests you'll need an active network connection.
-
 Run tests with
 `npm test`
