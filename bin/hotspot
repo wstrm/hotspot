@@ -1,12 +1,32 @@
 #!/usr/bin/env node
-var hotspot = require('../server/index');
 
-hotspot.set('port', process.env.PORT || 3535);
+var hotspot = require('../server/index'),
+    fs = require('fs');
+const CONF_PATH = __dirname + '/../config/hotspot.json';
 
-var server = hotspot.listen(hotspot.get('port'), function() {
+function parseConf(confPath, callback) {
+  var config = fs.readFileSync(confPath);
+  
+  try {
+    return callback(JSON.parse(config));
+  } catch (err) {
+    throw 'Unable to parse "' + confPath + '"\n' + err;
+  }
+}
 
-  var host = server.address().address,
-      port = server.address().port;
+function listenHTTP() {
+  var server = hotspot.listen(hotspot.get('port'), hotspot.get('address'), function() {
 
-  console.log('[HOTSPOT] Listening at http://%s:%s', host, port);
+    var host = server.address().address,
+        port = server.address().port;
+
+    console.log('[HOTSPOT] Listening at http://%s:%s', host, port);
+  });
+}
+
+parseConf(CONF_PATH, function loadConf(config) {
+  hotspot.set('port', config.http.port || process.env.PORT || 3535);
+  hotspot.set('address', config.http.address || process.env.ADDRESS || '127.0.0.1');
+
+  listenHTTP();
 });

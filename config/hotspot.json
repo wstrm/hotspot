@@ -1,4 +1,8 @@
 {
+  "http": {
+    "port": 3535,
+    "address": "::"
+  },
   "maintainer": "<Hotspot/tunnel maintainer name>",
   "email": "<Maintainers email>",
   "phone": "<Maintainers phonenumber>"
