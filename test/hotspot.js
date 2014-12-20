@@ -87,4 +87,34 @@ describe('hotspot', function() {
       });
     });
   });
+
+  describe('.cjdnsFactory(config)', function() {
+    it('should parse the config file and connect to cjdnsadmin', function(done) {
+      var cjdnsFactory = new hotspot.cjdnsFactory('test/assets/cjdns.json');
+      var cjdns = cjdnsFactory.cjdns;
+
+      cjdns.send({ q: 'ping' }, function(err, msg) {
+        if (msg && msg.q === 'pong') {
+          done();
+        } else {
+          throw msg;
+        }
+      });
+    });
+
+    describe('.getNode(ipaddr, callback)', function() {
+      it('should find node by ip address and return callback with node info', function(done) {
+        var cjdnsFactory = new hotspot.cjdnsFactory('test/assets/cjdns.json');
+
+        cjdnsFactory.getNode('fc99:02f4:7795:c86c:36bd:63ae:cf49:d459', function(err, node) {
+          if (err) {
+            throw err;
+          } else {
+            console.log(node);
+            done();
+          }
+        });
+      });
+    });
+  });
 });
