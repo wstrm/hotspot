@@ -19,11 +19,12 @@ I appreciate contributions, but also scolding for mistakes, etc.
 `npm install && npm start`
 
 ### Custom way
-`npm install`
+Download all dependenices with `npm install`
 
 Now you can edit the view and stylesheets for a custom appearance.
-*View* `views/`
-*Stylesheets* `public/src/stylesheets/`
+
+* Views `views/`
+* Stylesheets `public/src/stylesheets/`
 
 You'll then need to rebuild the stylesheets with `npm install` or `bin/make`.
 
