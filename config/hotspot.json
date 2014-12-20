@@ -3,7 +3,12 @@
     "port": 3535,
     "address": "::"
   },
-  "maintainer": "<Hotspot/tunnel maintainer name>",
-  "email": "<Maintainers email>",
-  "phone": "<Maintainers phonenumber>"
+  "cjdns": {
+    "type": 1
+  },
+  "hotspot": {
+    "maintainer": "<Hotspot/tunnel maintainer name>",
+    "email": "<Maintainers email>",
+    "phone": "<Maintainers phonenumber>"
+  }
 }

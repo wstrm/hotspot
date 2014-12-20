@@ -3,33 +3,33 @@ extends layout
 
 block content
 
-  h2 Välkommen till #{title}
+  h2 Welcome to a CJDNS Hotspot
 
-  p #{title} är ett CJDNS baserat nätverk, för att kunna ansluta måste du köra CJDNS och även registrera din e-post och MAC-adress. 
+  p This network is CJDNS based, to connect you'll need to run CJDNS and also register below.
 
-  h3 Registrera
+  h3 Register
   form(action='/register', method='post')
     if err
-      h4 Kunde inte hitta din MAC-adress, skriv in den manuellt istället.
+      h4 Unable to find your MAC address, please enter it manually.
 
     div
-      label(for='fullname') Namn:
+      label(for='fullname') Name:
       br
       input(type='text', id='fullname', name='fullname', placeholder='John Doe')
 
     div
-      label(for='email') E-post:
+      label(for='email') E-mail:
       br
       input(type='email', id='email', name='email', placeholder='me@example.com')
 
     div
-      label(for='phone') Telefonnummer:
+      label(for='phone') Phone number:
       br
       input(type='text', id='phone', name='phone', placeholder='0498123456')
 
     div
       label(for='macaddress')
-        | MAC-adress (
+        | MAC address (
         a(href='/help/#get-mac-address') ?
         | ):
       br
@@ -44,4 +44,4 @@ block content
       input(type='text', id='pubkey', name='pubkey')
     
     div
-      button(type='submit') Skicka
+      button(type='submit') Submit

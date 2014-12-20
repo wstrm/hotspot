@@ -14,10 +14,20 @@ This ~~is a~~ will be a general purpose captive portal, but as I'm in quite a hu
 ## Contribute
 I appreciate contributions, but also scolding for mistakes, etc.
 
-## Deploy
+## Deploy & setup
+### Easy way
+`npm install && npm start`
+
+### Custom way
 `npm install`
 
-`npm start`
+Now you can edit the view and stylesheets for a custom appearance.
+*View* `views/`
+*Stylesheets* `public/src/stylesheets/`
+
+You'll then need to rebuild the stylesheets with `npm install` or `bin/make`.
+
+To start the hotspot, run `npm start` or `bin/hotspot`
 
 ## Test
 Run tests with

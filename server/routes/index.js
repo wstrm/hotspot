@@ -8,14 +8,12 @@ router.get('/', function(req, res) {
     if (err) {
       console.error(err);
       res.render('index', {
-        title: 'HTSIT Hotspot',
         err: true,
         ip: req.ip,
         mac: ''
       });
     } else {
       res.render('index', {
-        title: 'HTSIT Hotspot',
         err: false,
         ip: req.ip,
         mac: mac 
