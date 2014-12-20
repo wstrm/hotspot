@@ -1,7 +1,7 @@
 Hotspot (Work in Progress) [![Build Status](https://travis-ci.org/willeponken/hotspot.svg)](https://travis-ci.org/willeponken/hotspot)
 =======
 
-Captive portal for the CJDNS-based HTSIT network.
+Captive portal for CJDNS
 
 ## TODO
 - [x] Don't use a upload form for the cjdroute.conf (security problems)
