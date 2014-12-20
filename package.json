@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Hotspot landing page",
   "private": true,
-  "main": "hotspot.js",
+  "main": "./bin/hotspot",
   "scripts": {
     "start": "node ./bin/hotspot",
     "install": "node ./bin/make",
