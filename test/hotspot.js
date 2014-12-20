@@ -19,19 +19,19 @@ describe('hotspot', function() {
   describe('.credFactory(config)', function() {
     it('should parse the config file', function(done) {
 
-      var credFactory = new hotspot.credFactory('test/assets/hotspot.json');
+      var credFactory = new hotspot.credFactory('test/assets/hotspot-0.json');
       var config = credFactory.config;
 
-      assert.equal(config.maintainer, 'John Doe');
-      assert.equal(config.email, 'john@doe');
-      assert.equal(config.phone, '074-111104110');
+      assert.equal(config.hotspot.maintainer, 'John Doe');
+      assert.equal(config.hotspot.email, 'john@doe');
+      assert.equal(config.hotspot.phone, '074-111104110');
 
       done();
     });
 
     describe('.create(hash, user, callback)', function() {
-      it('should return callback with user and server credentials', function(done) {
-        var credFactory = new hotspot.credFactory('test/assets/hotspot.json');
+      it('should return callback with user and server credentials (type 0)', function(done) {
+        var credFactory = new hotspot.credFactory('test/assets/hotspot-0.json');
         var userData = {
           fullname: 'John Doe',
           email: 'john@doe',
@@ -47,6 +47,28 @@ describe('hotspot', function() {
 
           userCred = JSON.parse(userCred);
           assert.equal(userCred.maintainer, 'John Doe');
+
+          done();
+        });
+      });
+      
+      it('should return callback with user and server credentials (type 1)', function(done) {
+        var credFactory = new hotspot.credFactory('test/assets/hotspot-1.json');
+        var userData = {
+          fullname: 'John Doe',
+          email: 'john@doe',
+          phone: '074-111104110',
+          macaddress: '01:23:45:67:89:ab'
+        };
+
+        credFactory.create('123asdzxcqwe456', userData, function(err, userCred, serverCred) {
+
+          assert.equal(err, null);
+          assert.equal(typeof userCred, 'string');
+          assert.equal(serverCred.name, 'John Doe');
+
+          userCred = JSON.parse(userCred);
+          assert.equal(userCred['01:23:45:67:89:ab'].maintainer, 'John Doe');
 
           done();
         });
