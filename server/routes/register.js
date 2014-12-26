@@ -19,16 +19,6 @@ router.post('/', function(req, res) {
     }
   });
 
-  /*cjdns.sendAuth({q: 'ping', args: {}}, function (err, msg) {
-    if (err) {
-      console.log(err);
-      return errorHandler(err);
-    }
-
-    console.log(msg);
-    //return res.send(msg);
-  });*/
-
 });
 
 module.exports = router;
