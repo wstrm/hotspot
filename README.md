@@ -37,6 +37,9 @@ Run tests with
 ## How
 Here I'll brainstorm how this should be done.
 
+### Links
+* https://github.com/berlinmeshnet/splashpage
+
 ### Basic CJDNS -> Hypeboria connection
 | CLIENT                                                      | SERVER                                |
 |-------------------------------------------------------------|---------------------------------------|
