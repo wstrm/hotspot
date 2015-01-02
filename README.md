@@ -33,3 +33,27 @@ To start the hotspot, run `npm start` or `bin/hotspot`
 ## Test
 Run tests with
 `npm test`
+
+## How
+Here I'll brainstorm how this should be done.
+
+### Basic CJDNS -> Hypeboria connection
+| CLIENT                                                      | SERVER                                |
+|-------------------------------------------------------------|---------------------------------------|
+| Connect via WiFi through AP which gateway is the server.    |                                       |
+| Tries to connect to a webpage.                              |                                       |
+|                                                             | Redirecting to captive portal.        |
+| Registering at the captive portal.                          |                                       |
+| Downloads CJDNS from captive portal, and then runs it.      |                                       |
+
+### IP Tunnel connection to Internet
+| CLIENT                                                      | SERVER                                                                     |
+|-------------------------------------------------------------|----------------------------------------------------------------------------|
+| Tries to access non-local IPv4 and IPv6.                    |                                                                            |
+|                                                             | Redirecting to captive portal.                                             |
+| Clicks on IP Tunnel registration.                           |                                                                            |
+|                                                             | Creates credentials for user and add him/her to CJDNS.                     |
+|                                                             | Present credentials to user that he/she should add to their cjdroute.conf. |
+| Adds credentials.                                           |                                                                            |
+| Restarts CJDNS.                                             |                                                                            |
+| Tada! Able to access Internet.                              |                                                                            |
