@@ -46,7 +46,7 @@ Here I'll brainstorm how this should be done.
 | Registering at the captive portal.*                         |                                       |
 | Downloads CJDNS from captive portal, and then runs it.      |                                       |
 
-* Could be removed and only show the user a download link for CJDNS and instructions.
+`* Could be removed and only show the user a download link for CJDNS and instructions.`
 
 ### IP Tunnel connection to Internet
 | CLIENT                                                      | SERVER                                                                     |
