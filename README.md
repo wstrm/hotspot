@@ -34,7 +34,7 @@ To start the hotspot, run `npm start` or `bin/hotspot`
 Run tests with
 `npm test`
 
-## How
+## Brainstorm
 Here I'll brainstorm how this should be done.
 
 ### Links
@@ -62,3 +62,11 @@ Here I'll brainstorm how this should be done.
 | Adds credentials.                                           |                                                                            |
 | Restarts CJDNS.                                             |                                                                            |
 | Tada! Able to access Internet.                              |                                                                            |
+
+## How to
+As of now, this is pretty basic.
+
+* Install dnsmasq and iptables (if you don't got that for some reason)
+* Hijack DNS req's: echo 'address=/#/192.168.1.1' >> /etc/dnsmasq.conf # Where 192.168.1.1 is the captive portal address
+* Hijack IP req's: iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 192.168.1.1:80
+* Setup captive portal (this)
