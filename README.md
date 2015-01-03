@@ -43,7 +43,7 @@ Here I'll brainstorm how this should be done.
 ### Basic CJDNS -> Hypeboria connection
 | CLIENT                                                      | SERVER                                |
 |-------------------------------------------------------------|---------------------------------------|
-| Connect via WiFi through AP which gateway is the server.    |                                       |
+| Connect via WiFi through AP whose gateway is the server.    |                                       |
 | Tries to connect to a webpage.                              |                                       |
 |                                                             | Redirecting to captive portal.        |
 | Registering at the captive portal.*                         |                                       |
