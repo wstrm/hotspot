@@ -7,8 +7,12 @@
     "maintainer": "John Doe",
     "email": "info@example.com",
     "phone": "555-555 555",
-    "title": "CJDNS Hotspot",
-    "iptunnel": true
+    "title": "CJDNS Hotspot"
+  },
+  "iptunnel": {
+    "enabled": true,
+    "address": "1111:1111:1111:1111:",
+    "prefix": 0
   },
   "download": {
     "Windows": {

@@ -5,6 +5,7 @@ Captive portal for CJDNS
 
 ## TODO
 - [x] Don't use a upload form for the cjdroute.conf (security problems)
+- [ ] Get IP Tunnels to work (automate everyting)
 - [ ] Work out how this should be done?
 
 ## Vision

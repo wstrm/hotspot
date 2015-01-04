@@ -103,20 +103,19 @@ function Routes(router, hotspot, cjdns) {
           } else {
 
             // Create credentials
-            iptunnel.create(password, userData, function newCred(err, userCred, serverCred) {
-              console.log(userCred);
+            iptunnel.create(password, userData, function newCred(err, serverCred) {
               console.log(serverCred);
 
               // Allow connection through IPTunnel
               cjdns.IpTunnel_allowConnection(serverCred.publicKey, serverCred.ip6Prefix, serverCred.ip6Address, function(err, result) {
-                if (err || result.error) {
+                if (err || result.error !== 'none') {
                   var err = new Error(err || result.error);
                   err.status = 500;
                   return next(err);
                 }
-            
+           
                 return res.render('register', {
-                  cred: userCred,
+                  cred: cjdns.cjdnsConf.publicKey,
                   err: false,
                   conf: hotspot.config
                 });
