@@ -1,10 +1,8 @@
 var config = require('../../config/hotspot.json'),
-    HOTSPOT = require('../../lib/hotspot.js'),
     IPTUNNEL = require('../../lib/iptunnel.js'),
-    hotspot = new HOTSPOT(config),
     iptunnel = new IPTUNNEL(config);
 
-function Routes(router) {
+function Routes(router, hotspot, cjdns) {
   /*
    * HOME
    */
@@ -54,7 +52,10 @@ function Routes(router) {
    */
   router.get('/help', function(req, res) {
 
-    //res.render('help', { title: 'HTSIT Hotspot' });
+    return res.render('help', {
+      err: false,
+      conf: hotspot.config
+    });
 
   });
 
@@ -64,45 +65,62 @@ function Routes(router) {
 
   //PING
   router.get('/api/ping', function(req, res) {
-    res.sendStatus(200);
+    res.sendStatus(200); 
+  });
+
+  //HYPEINFO
+  router.get('/api/hypeinfo', function(req, res) {
+
+    res.jsonp({
+      ip: cjdns.cjdnsConf.ipv6,
+      port: hotspot.config.http.port
+    });
   });
 
   //REGISTER
-  router.post('/register', function(req, res) {
-    var errorHandler = new hotspot.errorHandler(res);
+  router.post('/api/register', function(req, res, next) {
     var userData = req.body;
     var userAddress = req.ip.replace('::ffff:', '');
-    
+   
+    console.log(userAddress); 
     console.log('[/register] New registration:', userData);
 
-    //console.log(userAddress);
-
-    // Probably need to rethink some stuff.
-    /*
-    cjdns.NodeStore_nodeForAddr('fc74:73e8:3913:f15b:d463:2fe7:db69:381e', function nodeResult(err, data) {
+    // Get the PubKey for the user
+    cjdns.NodeStore_nodeForAddr(userAddress, function nodeResult(err, data) {
       if (err) {
-        return errorHandler(err);
+        err = new Error(err);
+        err.status = 500;
+        return next(err);
       } else {
-        console.log(data);
-      }
-    });
-    */
+        userData.pubkey = data.result.key;
 
-    hotspot.createHash(256, function hashResult(err, hash) {
-      if (err) {
-        return errorHandler(err);
-      } else {
-        credFactory.create(hash, userData, function newCred(err, userCred, serverCred) {
+        // We've got the pubkey, let's create the has and credentials
+        hotspot.createHash(256, function hashResult(err, password) {
           if (err) {
-            return errorHandler(err);
+            err = new Error(err);
+            err.status = 500;
+            return next(err);
           } else {
-            cjdns.AuthorizedPasswords_add(serverCred.name, serverCred.password, undefined, undefined, function(err, msg) {
-              if (err) {
-                return errorHandler(err);
-              } else {
 
-                return res.render('register', { cred: userCred });
-              }
+            // Create credentials
+            iptunnel.create(password, userData, function newCred(err, userCred, serverCred) {
+              console.log(userCred);
+              console.log(serverCred);
+
+              // Allow connection through IPTunnel
+              cjdns.IpTunnel_allowConnection(serverCred.publicKey, serverCred.ip6Prefix, serverCred.ip6Address, function(err, result) {
+                if (err || result.error) {
+                  var err = new Error(err || result.error);
+                  err.status = 500;
+                  return next(err);
+                }
+            
+                return res.render('register', {
+                  cred: userCred,
+                  err: false,
+                  conf: hotspot.config
+                });
+              });
             });
           }
         });

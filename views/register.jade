@@ -2,9 +2,13 @@ extends layout
 
 block content
 
-  h2 Registrera
+  h3 IPTunnel registration
 
-  h3 Inloggningsuppgifter
-
-  p Klistra in nedanstående i cjdroute.conf, under "authorizedPasswords".
+  p Paste the following text to "outgoingConnections".
   pre #{cred}
+
+  p Example
+  pre
+    | "outgoingConnections": [
+    |   "#{cred}"
+    | ]

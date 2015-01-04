@@ -1,30 +1,41 @@
 var express = require('express'),
-    hotspot = express(),
+    app = express(),
     favicon = require('serve-favicon'),
     bodyParser = require('body-parser');
     path = require('path'),
-    env = hotspot.get('env');
+    env = app.get('env');
+    config = require('../config/hotspot.json'),
+    HOTSPOT = require('../lib/hotspot.js'),
+    hotspot = new HOTSPOT(config),
+    CJDNS = require('cjdnsadmin'),
+    cjdns = new CJDNS('./config/cjdns.json');
 
-/* View engines */
-hotspot.set('views', path.join(__dirname, '../views'));
-hotspot.set('view engine', 'jade');
-
-/* Static */
-hotspot.use(express.static(path.join(__dirname, '../public')));
-hotspot.use(bodyParser.json());
-hotspot.use(bodyParser.urlencoded({ extended: false }));
-//hotspot.use(favicon());
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,POST');
+  
+  next();
+});
 
 /* Configuration */
-hotspot.enable('trust proxy');
+app.enable('trust proxy');
+
+/* View engines */
+app.set('views', path.join(__dirname, '../views'));
+app.set('view engine', 'jade');
+
+/* Static */
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(favicon());
 
 /* Routes */
-var routes = require('./routes/index')(hotspot);
-//hotspot.use('config', routes);
+var routes = require('./routes/index')(app, hotspot, cjdns);
 
 /* Error handlers */
 // Catch 404
-hotspot.use(function(req, res, next) {
+app.use(function(req, res, next) {
   var err = new Error('Not found');
   err.status = 404;
   next(err);
@@ -33,21 +44,27 @@ hotspot.use(function(req, res, next) {
 if (env === 'development') {
 
   // Dev error handler
-  hotspot.use(function(err, req, res, next) {
-    return res.status(err.status || 500, { 
-      message: err.message,
-      error: err 
-    }).end();
+  app.use(function(err, req, res, next) {
+    return res.render('error', {
+      title: config.hotspot.title,
+      err: err,
+      msg: err.message || 'Something went wrong',
+      conf: config
+    });
   });
 } else {
 
   // Prod error handler
-  hotspot.use(function(err, req, res, next) {
-    return res.status(err.status || 500, {
-      message: err.message,
-      error: {} // Do not leak stacktraces
-    }).end();
+  app.use(function(err, req, res, next) {
+    console.error(err); // Log to stderr instead
+    
+    return res.render('error', {
+      title: config.hotspot.title,
+      err: '',
+      msg: err.message || 'If this problem persists, please contact the maintainer',
+      conf: config
+    });
   });
 }
 
-module.exports = hotspot;
+module.exports = app;

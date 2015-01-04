@@ -1,28 +1,38 @@
-function getPubKey (ip) {
+function checkCon (address, callback) {
   var http = new XMLHttpRequest();
+  this.count = 0;
 
-  http.open('GET', '/api/pubkey&' + ip, false);
-  http.send(null);
-
-  return http.responseText;
-}
-
-function checkCon (ip, callback) {
-  var http = new XMLHttpRequest();
-  
   var conInt = setInterval(function() {
- 
-    http.open('GET', 'http://' + ip + '/api/ping', false);
-    http.send(null);
 
-    if (http.responseText) {
-      clearInterval(conInt);
-      return callback();
+    try { 
+      http.open('GET', address + '/api/ping', false);
+      http.send();
+
+      if (http.responseText) {
+        clearInterval(conInt);
+        return callback(null, http.responseText);
+      }
+    } catch (err) {
+      callback('Failed to connect to address (' + this.count + ')');
     }
   
+    this.count++;
   }, 1000);
 }
 
-checkCon('[fc74:73e8:3913:f15b:d463:2fe7:db69:381e]:3535', function () {
-  console.log('Found connection!');
-});
+function hypeInfo(info) {
+  var address = 'http://[' + info.ip + ']:' + info.port;
+  var conStatus = document.getElementById('con-status');
+  var conErr = document.getElementById('con-error');
+  var regForm = document.getElementById('register');
+
+  checkCon(address, function (err) {
+    if (err) {
+      conErr.innerHTML = err; 
+    } else {
+      regForm.action = address + '/api/register';
+      regForm.style.display = 'block';
+      conStatus.style.display = 'none';
+    }
+  });
+}
