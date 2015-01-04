@@ -19,12 +19,8 @@ hotspot.use(bodyParser.urlencoded({ extended: false }));
 hotspot.enable('trust proxy');
 
 /* Routes */
-var index = require('./routes/index'),
-    register = require('./routes/register'),
-    help = require('./routes/help');
-hotspot.use('/', index);
-hotspot.use('/register', register);
-hotspot.use('/help', help);
+var routes = require('./routes/index')(hotspot);
+//hotspot.use('config', routes);
 
 /* Error handlers */
 // Catch 404

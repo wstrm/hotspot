@@ -3,12 +3,21 @@
     "port": 3535,
     "address": "::"
   },
-  "cjdns": {
-    "type": 1
-  },
   "hotspot": {
-    "maintainer": "<Hotspot/tunnel maintainer name>",
-    "email": "<Maintainers email>",
-    "phone": "<Maintainers phonenumber>"
+    "maintainer": "John Doe",
+    "email": "info@example.com",
+    "phone": "555-555 555",
+    "title": "CJDNS Hotspot",
+    "iptunnel": true
+  },
+  "download": {
+    "Windows": {
+      "url": "/download/windows.zip",
+      "name": "Download"
+    },
+    "Linux": {
+      "url": "/download/linux.tar.gz",
+      "name": "Download"
+    }
   }
 }

@@ -1,0 +1,39 @@
+extends layout
+
+block content
+
+  script(src='/src/javascript/iptunnel.js')
+
+  h3 IPTunnel registration
+
+  p For access to the Internet, please register for an iptunnel below.
+
+  form(action='/register', method='post')
+    if err
+      h4 Unable to find your MAC address, please enter it manually.
+
+    div
+      label(for='fullname') Name:
+      br
+      input(type='text', id='fullname', name='fullname', placeholder='John Doe')
+
+    div
+      label(for='email') E-mail:
+      br
+      input(type='email', id='email', name='email', placeholder='me@example.com')
+
+    div
+      label(for='phone') Phone number:
+      br
+      input(type='text', id='phone', name='phone', placeholder='0498123456')
+
+    div
+      label(for='pubkey')
+        | CJDNS-public key (
+        a(href='/help/#get-pubkey') ?
+        | ):
+      br
+      input(type='text', id='pubkey', name='pubkey')
+    
+    div
+      button(type='submit') Submit

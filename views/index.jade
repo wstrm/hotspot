@@ -1,47 +1,14 @@
-- var err = #{err}
 extends layout
 
 block content
 
-  h2 Welcome to a CJDNS Hotspot
+  h2 Welcome to #{conf.hotspot.title}
 
-  p This network is CJDNS based, to connect you'll need to run CJDNS and also register below.
+  p This network is CJDNS based, to connect you'll need to run CJDNS.
 
-  h3 Register
-  form(action='/register', method='post')
-    if err
-      h4 Unable to find your MAC address, please enter it manually.
+  h3 Download CJDNS
 
+  each link, os in conf.download
     div
-      label(for='fullname') Name:
-      br
-      input(type='text', id='fullname', name='fullname', placeholder='John Doe')
-
-    div
-      label(for='email') E-mail:
-      br
-      input(type='email', id='email', name='email', placeholder='me@example.com')
-
-    div
-      label(for='phone') Phone number:
-      br
-      input(type='text', id='phone', name='phone', placeholder='0498123456')
-
-    div
-      label(for='macaddress')
-        | MAC address (
-        a(href='/help/#get-mac-address') ?
-        | ):
-      br
-      input(type='text', id='macaddress', name='macaddress', placeholder='01:23:45:67:89:ab', value='#{mac}')
-
-    div
-      label(for='pubkey')
-        | CJDNS-public key (
-        a(href='/help/#get-pubkey') ?
-        | ):
-      br
-      input(type='text', id='pubkey', name='pubkey')
-    
-    div
-      button(type='submit') Submit
+      b= os + ': '
+      a(href='#{link.url}')= link.name

@@ -1,15 +1,18 @@
 doctype html
 html
   head
-    title CJDNS Hotspot
+    title= conf.hotspot.title
     link(rel='stylesheet', href='/build/stylesheets/hotspot.css')
   body
     #main-wrapper
       #inner-wrapper
-        h1 CJDNS Hotspot
+        h1= conf.hotspot.title
         ul
           li
             a(href='/') Home
+          if conf.hotspot.iptunnel
+            li
+              a(href='/iptunnel') IPTunnel
           li
            a(href='/help') Help
 
@@ -20,4 +23,4 @@ html
         hr
         p.center
           em Contact: 
-            a(href='mailto:info@example.com') info@example.com
+            a(href='mailto:#{conf.hotspot.email}')= conf.hotspot.email

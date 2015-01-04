@@ -1,8 +1,11 @@
-var hotspot = require('../lib/hotspot.js'),
+var HOTSPOT = require('../lib/hotspot.js'),
     net = require('netroute'),
     assert = require('assert');
 
 describe('hotspot', function() {
+
+  var hotspot = new HOTSPOT(require('../config/hotspot.json'));
+
   describe('.getMAC(iface, ip, callback)', function() {
     it('should return callback with MAC', function(done) {
       
@@ -16,6 +19,7 @@ describe('hotspot', function() {
     });
   });
 
+  /*
   describe('.credFactory(config)', function() {
     it('should parse the config file', function(done) {
 
@@ -75,7 +79,7 @@ describe('hotspot', function() {
       });
     });
   });
-
+  */
   describe('.createHash(bytes, callback)', function() {
     it('should return callback with md5 hash', function(done) {
 
