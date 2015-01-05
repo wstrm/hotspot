@@ -13,9 +13,8 @@ describe('iptunnel', function() {
         email: 'john@doe',
         phone: '555-555 555',
         pubkey: '4th2o54gaiszurhqp2iuhriu4h3gaeruhgaliuhrga.k'
-      }, function(err, user, server) {
+      }, function(err, server) {
         assert.ifError(err);
-        assert.equal(typeof user, 'string');
         assert.equal(server.name, 'John Doe');
 
         done();
