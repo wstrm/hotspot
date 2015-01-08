@@ -2,7 +2,7 @@ function checkCon (address, callback) {
   var http = new XMLHttpRequest();
   this.count = 0;
 
-  var conInt = setInterval(function() {
+  function initCon() {
 
     try { 
       http.open('GET', address + '/api/ping', false);
@@ -17,7 +17,10 @@ function checkCon (address, callback) {
     }
   
     this.count++;
-  }, 1000);
+  }
+  
+  var conInt = setInterval(initCon, 5000);
+  initCon();
 }
 
 function hypeInfo(info) {
