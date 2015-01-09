@@ -80,7 +80,7 @@ function Routes(router, hotspot, cjdns) {
   //REGISTER
   router.post('/api/register', function(req, res, next) {
     var userData = req.body;
-    var userAddress = req.ip.replace('::ffff:', '');
+    var userAddress = req.ip.replace('::ffff:', ''); // Incase of ipv4-mapped ipv6 addresses
    
     console.log(userAddress); 
     console.log('[/register] New registration:', userData);
@@ -94,7 +94,7 @@ function Routes(router, hotspot, cjdns) {
       } else {
         userData.pubkey = data.result.key;
 
-        // We've got the pubkey, let's create the has and credentials
+        // We've got the pubkey, let's create the hash and credentials
         hotspot.createHash(256, function hashResult(err, password) {
           if (err) {
             err = new Error(err);
