@@ -126,5 +126,12 @@ function Routes(router, hotspot, cjdns) {
       }
     });
   });
+
+  //MISC/404
+  router.get('*', function(req, res) {
+
+    // Redirect all 404's to home page
+    res.redirect('/');
+  });
 };
 module.exports = Routes;
