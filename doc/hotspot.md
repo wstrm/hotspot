@@ -6,7 +6,87 @@ I will have a kind of micro blog here, where I post my progress.
 
 ##2015-01-15
 
+Ah, finally, got it working properly (everything except IP tunnel).
+So this is my current setup:
+###Access point
+####Topology
+* Gateway 10.3.14.1
+* Address 10.3.14.10-49
+* Netmask 255.255.255.0
+* DNS 10.3.14.1
+* SSID TESTNET
+###HP G5 (router)
+####Topology
+* eth0
+  * Gateway 192.168.1.1
+  * Address 192.168.1.3
+  * Netmask 255.255.255.0
+  * DNS 10.3.14.1
+* eth1
+  * Address 10.3.14.1
+  * Netmask 255.255.255.0
+* dhcp
+  * Range 10.3.14.50 - 10.3.14.200
+  * Broadcast 10.3.14.255
+  * Routers 10.3.14.1
+  * Lease time 600 - 7200
+  * Domain name TESTNET
+  * DNS 10.3.14.1
+* dns
+  * Interface eth0 & eth1
+* router
+  * Route port 80 and 443 (on eth1) traffic to 10.3.14.1 
 
+####Configuration
+#####/etc/network/interfaces
+Configuration for the TESTNET network:
+```
+# TESTNET network interface
+auto eth1
+iface eth1 inet static
+  address 10.3.14.1
+  netmask 255.255.255.0
+  # Restore iptables
+  post-up iptables-restore < /etc/iptables/rules
+```
+
+#####isc-dhcp-server
+`dhcpd.conf` configuration:
+```
+ddns-update-style none;
+authoritative;
+log-facility local7;
+
+subnet 10.3.14.0 netmask 255.255.255.0 {
+	range 10.3.14.50 10.3.14.200;
+	option broadcast-address 10.3.14.255;
+	option routers 10.3.14.1;
+	default-lease-time 600;
+	max-lease-time 7200;
+	option domain-name "TESTNET";
+	option domain-name-servers 10.3.14.1;
+}
+```
+#####dnsmasq
+`dnsmasq.conf` configuration:
+```
+interface=eth0
+interface=eth1
+```
+Optionally, you could add `address=/#/10.3.14.1` to catch every DNS request and point to the server.
+
+#####iptables
+These are the rules used:
+```
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 10.3.14.1:80
+iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination 10.3.14.1:443
+iptables -t -A POSTROUTING -o eth1 -j MASQUERADE
+```
+You'd probably use `iptables-save` and `iptables-restore` for persistent rules, see below and `/etc/network/interfaces` configuration.
+Saving the rules:
+```
+iptables-save > /etc/iptables.rules
+```
 
 ##2015-01-12
 Took all the stuff to my school to set it up on the HP G5 and with the 2.4/5GHz access point.
