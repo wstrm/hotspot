@@ -15,6 +15,7 @@ So this is my current setup:
 * Netmask 255.255.255.0
 * DNS 10.3.14.1
 * SSID TESTNET
+
 ###HP G5 (router)
 ####Topology
 * eth0
@@ -38,6 +39,8 @@ So this is my current setup:
   * Route port 80 and 443 (on eth1) traffic to 10.3.14.1 
 
 ####Configuration
+This was done on a Ubuntu machine.
+
 #####/etc/network/interfaces
 Configuration for the TESTNET network:
 ```
@@ -80,7 +83,6 @@ These are the rules used:
 ```
 iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 10.3.14.1:80
 iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination 10.3.14.1:443
-iptables -t -A POSTROUTING -o eth1 -j MASQUERADE
 ```
 You'd probably use `iptables-save` and `iptables-restore` for persistent rules, see below and `/etc/network/interfaces` configuration.
 Saving the rules:
