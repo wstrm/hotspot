@@ -4,11 +4,11 @@ var express = require('express'),
     bodyParser = require('body-parser');
     path = require('path'),
     env = app.get('env');
-    config = require('../config/hotspot.json'),
-    HOTSPOT = require('../lib/hotspot.js'),
+    config = require(path.join(__dirname, '../config/hotspot.json')),
+    HOTSPOT = require(path.join(__dirname, '../lib/hotspot.js')),
     hotspot = new HOTSPOT(config),
     CJDNS = require('cjdnsadmin'),
-    cjdns = new CJDNS('./config/cjdns.json');
+    cjdns = new CJDNS(path.join(__dirname, '../config/cjdns.json'));
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(favicon());
 
 /* Routes */
-var routes = require('./routes/index')(app, hotspot, cjdns);
+var routes = require(path.join(__dirname, './routes/index'))(app, hotspot, cjdns);
 
 /* Error handlers */
 // Catch 404

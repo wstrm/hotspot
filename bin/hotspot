@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 var hotspot = require('../server/index'),
-    fs = require('fs');
-const CONF_PATH = __dirname + '/../config/hotspot.json';
+    fs = require('fs'),
+    path = require('path');
+
+const CONF_PATH = path.join(__dirname + '/../config/hotspot.json');
 
 function parseConf(confPath, callback) {
   var config = fs.readFileSync(confPath);
