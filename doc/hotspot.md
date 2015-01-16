@@ -73,7 +73,6 @@ subnet 10.3.14.0 netmask 255.255.255.0 {
 #####dnsmasq
 `dnsmasq.conf` configuration:
 ```
-interface=eth0
 interface=eth1
 ```
 Optionally, you could add `address=/#/10.3.14.1` to catch every DNS request and point to the server.
