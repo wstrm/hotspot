@@ -15,10 +15,6 @@
     "prefix": 0
   },
   "download": {
-    "Windows": {
-      "url": "/download/windows.zip",
-      "name": "Download"
-    },
     "Linux": {
       "url": "/download/linux.tar.gz",
       "name": "Download"
