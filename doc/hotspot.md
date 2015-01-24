@@ -4,6 +4,53 @@ This ~~is a~~ will be a general purpose captive portal.
 
 I will have a kind of micro blog here, where I post my progress.
 
+##2015-01-24
+
+IP tunnel works! (using IPv6), this is how my setup looks like on two nodes (DigitalOcean):
+
+###node0 (tunnel)
+####Topology
+* eth0
+  * Address 2a03:b0c0:2:d0::1c0:f001/64
+  * Gateway 2a03:b0c0:2:d0::1/64
+* tun0
+  * Address 2a03:b0c0:2:d0::1c0:f002/128
+
+###node1 (client)
+####Topology
+* tun0
+  * Address 2a03:b0c0:2:d0::1c0:f003/0
+
+####Configuration
+#####cjdroute.conf
+```
+"ipTunnel": {
+  "allowedConnections":
+    [
+      {
+        "publicKey": "****************************************************.k",
+        "ip6Address": "2a03:b0c0:2:d0::1c0:f003",
+        "ip6Prefix": 0
+      }
+    ],
+
+    "outgoingConnections": []
+}
+```
+#####ip
+```
+ip -6 addr add dev tun0 2a03:b0c0:2:d0::1c0:f002
+ip -6 route add dev eth0 2a03:b0c0:2:d0::1
+ip -6 route add dev tun0 2a03:b0c0:2:d0::1c0:f000/124 # My configurable range is 2a03:b0c0:2:d0::1c0:f000 - 2a03:b0c0:2:d0::1c0:f00f
+ip -6 route add default via 2a03:b0c0:2:d0::1 # Not really necessary, but just in case
+echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
+echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf # Make forwarding permanent
+```
+
+I then ran `ping6 ipv6.google.com` on node1 and `tcpdump -i eth0 icmp6` node0, I was able to see the replies/requests, so it works!
+
+
+
 ##2015-01-15
 
 Ah, finally, got it working properly (everything except IP tunnel).
