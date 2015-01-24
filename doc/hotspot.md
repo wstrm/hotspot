@@ -16,11 +16,6 @@ IP tunnel works! (using IPv6), this is how my setup looks like on two nodes (Dig
 * tun0
   * Address 2a03:b0c0:2:d0::1c0:f002/128
 
-###node1 (client)
-####Topology
-* tun0
-  * Address 2a03:b0c0:2:d0::1c0:f003/0
-
 ####Configuration
 #####cjdroute.conf
 ```
@@ -49,7 +44,21 @@ echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf # Make forwarding perm
 
 I then ran `ping6 ipv6.google.com` on node1 and `tcpdump -i eth0 icmp6` node0, I was able to see the replies/requests, so it works!
 
+###node1 (client)
+####Topology
+* tun0
+  * Address 2a03:b0c0:2:d0::1c0:f003/0
 
+####Configuration
+```
+"ipTunnel": {
+  "allowedConnections":[],
+  
+  "outgoingConnections": [
+    "****************************************************.k"
+  ]
+}
+```
 
 ##2015-01-15
 
