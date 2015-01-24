@@ -50,6 +50,7 @@ I then ran `ping6 ipv6.google.com` on node1 and `tcpdump -i eth0 icmp6` node0, I
   * Address 2a03:b0c0:2:d0::1c0:f003/0
 
 ####Configuration
+#####cjdroute.conf
 ```
 "ipTunnel": {
   "allowedConnections":[],
