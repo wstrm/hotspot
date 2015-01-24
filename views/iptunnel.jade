@@ -6,10 +6,10 @@ block content
 
   p For access to the Internet, please register for an iptunnel below.
 
-  pre#con-status Trying to connect server via CJDNS...
+  pre#con-status
   pre#con-error
 
-  form(action='#no-hype-connection', method='post', id='register')
+  form(action='/api/register', method='post', id='register')
     div
       label(for='fullname') Name:
       br
@@ -24,6 +24,11 @@ block content
       label(for='phone') Phone number:
       br
       input(type='text', id='phone', name='phone', placeholder='0498123456')
+
+    div#man-pubkey
+      label(for='pubkey') Public key:
+      br
+      input(type='text', id='pubkey', name='pubkey', placeholder='pubkey.k')
     
     div
       button(type='submit') Submit

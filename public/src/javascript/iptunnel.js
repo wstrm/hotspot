@@ -25,11 +25,15 @@ function checkCon (address, callback) {
 
 function hypeInfo(info) {
   var address = 'http://[' + info.ip + ']:' + info.port;
+  var manPubKey = document.getElementById('man-pubkey');
   var conStatus = document.getElementById('con-status');
   var conErr = document.getElementById('con-error');
   var regForm = document.getElementById('register');
 
   checkCon(address, function (err) {
+    conStatus.innerHTML = 'Trying to connect to CJDNS...';
+    manPubKey.style.display = 'none';
+
     if (err) {
       conErr.innerHTML = err; 
     } else {

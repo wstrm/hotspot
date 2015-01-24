@@ -85,46 +85,55 @@ function Routes(router, hotspot, cjdns) {
     console.log(userAddress); 
     console.log('[/register] New registration:', userData);
 
-    // Get the PubKey for the user
-    cjdns.NodeStore_nodeForAddr(userAddress, function nodeResult(err, data) {
-      if (err) {
-        err = new Error(err);
-        err.status = 500;
-        return next(err);
-      } else {
-        userData.pubkey = data.result.key;
+    function registerTunnel (userData) {
+      
+      // Let's create the hash and credentials
+      hotspot.createHash(256, function hashResult(err, password) {
+        if (err) {
+          err = new Error(err);
+          err.status = 500;
+          return next(err);
+        } else {
 
-        // We've got the pubkey, let's create the hash and credentials
-        hotspot.createHash(256, function hashResult(err, password) {
-          if (err) {
-            err = new Error(err);
-            err.status = 500;
-            return next(err);
-          } else {
+          // Create credentials
+          iptunnel.create(password, userData, function newCred(err, serverCred) {
+            console.log(serverCred);
 
-            // Create credentials
-            iptunnel.create(password, userData, function newCred(err, serverCred) {
-              console.log(serverCred);
-
-              // Allow connection through IPTunnel
-              cjdns.IpTunnel_allowConnection(serverCred.publicKey, serverCred.ip6Prefix, serverCred.ip6Address, function(err, result) {
-                if (err || result.error !== 'none') {
-                  var err = new Error(err || result.error);
-                  err.status = 500;
-                  return next(err);
-                }
-           
-                return res.render('register', {
-                  cred: cjdns.cjdnsConf.publicKey,
-                  err: false,
-                  conf: hotspot.config
-                });
+            // Allow connection through IPTunnel
+            cjdns.IpTunnel_allowConnection(serverCred.publicKey, serverCred.ip6Prefix, serverCred.ip6Address, function(err, result) {
+              if (err || result.error !== 'none') {
+                var err = new Error(err || result.error);
+                err.status = 500;
+                return next(err);
+              }
+         
+              return res.render('register', {
+                cred: cjdns.cjdnsConf.publicKey,
+                err: false,
+                conf: hotspot.config
               });
             });
-          }
-        });
-      }
-    });
+          });
+        }
+      });
+    }
+
+    if (userData.pubkey) { // Check for manual entry
+      registerTunnel(userData);
+    } else {
+      // Get the PubKey for the user
+      cjdns.NodeStore_nodeForAddr(userAddress, function nodeResult(err, data) {
+        if (err) {
+          err = new Error(err);
+          err.status = 500;
+          return next(err);
+        } else if (data.result && data.result.key) {
+          userData.pubkey = data.result.key;
+
+          registerTunnel(userData);
+        }
+      });
+    }
   });
 
   //MISC/404
