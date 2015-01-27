@@ -42,8 +42,6 @@ echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
 echo "net.ipv6.conf.all.forwarding=1" >> /etc/sysctl.conf # Make forwarding permanent
 ```
 
-I then ran `ping6 ipv6.google.com` on node1 and `tcpdump -i eth0 icmp6` node0, I was able to see the replies/requests, so it works!
-
 ###node1 (client)
 ####Topology
 * tun0
@@ -60,6 +58,8 @@ I then ran `ping6 ipv6.google.com` on node1 and `tcpdump -i eth0 icmp6` node0, I
   ]
 }
 ```
+
+I then ran `ping6 ipv6.google.com` on node1 and `tcpdump -i eth0 icmp6` on node0, I was able to see the replies/requests, so it works!
 
 ##2015-01-15
 
