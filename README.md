@@ -16,19 +16,20 @@ This ~~is a~~ will be a general purpose captive portal, but as I'm in quite a hu
 I appreciate contributions, but also scolding for mistakes, etc.
 
 ## Deploy & setup
-### Easy way
-`npm install && npm start`
+### Setup
+#### Easy way
+* `npm install`.
+* Edit `config/cjdns.json` and add the correct path to `cjdroute.conf` or `.cjdnsadmin`.
+* Edit `config/hotspot.json` and change port and address to the appropriate, and change the information under `hotspot`. Also update `download` and poin to where the file is, or remove if you don't want to serve any files.
 
-### Custom way
-Download all dependenices with `npm install`
+####Custom way
+* Do all the steps under `Easy way`.
+* Now you can edit the view and stylesheets for a custom appearance.
+	* Views `views/`
+	* Stylesheets `public/src/stylesheets/`
+* You'll then need to rebuild the stylesheets with `npm install` or `bin/make`.
 
-Now you can edit the view and stylesheets for a custom appearance.
-
-* Views `views/`
-* Stylesheets `public/src/stylesheets/`
-
-You'll then need to rebuild the stylesheets with `npm install` or `bin/make`.
-
+###Deploy
 To start the hotspot, run `npm start` or `bin/hotspot`
 
 ## Test
