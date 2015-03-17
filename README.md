@@ -5,8 +5,9 @@ Captive portal for CJDNS
 
 ## TODO
 - [x] Don't use a upload form for the cjdroute.conf (security problems)
-- [ ] Get IP Tunnels to work (automate everything)
-- [ ] Work out how this should be done?
+- [x] Get IP Tunnels to work (automate everything)
+- [x] Work out how this should be done?
+- [ ] Replace node-cjdnsadmin with cjdns-admin module (on npm)
 
 ## Vision
 The idea is to have a CJDNS-only network, but before that, people want to be able to access the Internet.

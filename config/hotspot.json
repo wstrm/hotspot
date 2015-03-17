@@ -10,9 +10,7 @@
     "title": "CJDNS Hotspot"
   },
   "iptunnel": {
-    "enabled": true,
-    "address": "1111:1111:1111:1111:",
-    "prefix": 0
+    "enabled": true
   },
   "download": {
     "Linux": {

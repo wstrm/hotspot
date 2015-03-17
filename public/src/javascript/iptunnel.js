@@ -17,6 +17,7 @@ function checkCon (address, callback) {
       http.addEventListener('load', function () {
         if (http.responseText && http.status === 200) {
           clearInterval(conInt);
+          clearTimeout(httpTimeout);
           return callback(null, http.responseText);
         }
       });

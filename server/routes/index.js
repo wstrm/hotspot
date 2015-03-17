@@ -1,6 +1,5 @@
-var config = require('../../config/hotspot.json'),
-    IPTUNNEL = require('../../lib/iptunnel.js'),
-    iptunnel = new IPTUNNEL(config);
+var net         = require('net'),
+    iptdConfig  = require('../../config/iptd.json');
 
 function Routes(router, hotspot, cjdns) {
   /*
@@ -12,29 +11,6 @@ function Routes(router, hotspot, cjdns) {
       err: false,
       conf: hotspot.config,
     });
-
-    // Removing all MAC based auth
-    /*
-    hotspot.getMAC('wifi0', req.ip, '/proc/net/arp', function(err, mac) {
-      if (err) {
-        console.error(err);
-        res.render('index', {
-          err: true,
-          conf: hotspot.config,
-          ip: req.ip,
-          mac: ''
-        });
-      } else {
-        res.render('index', {
-          err: false,
-          conf: hotspot.config,
-          ip: req.ip,
-          mac: mac 
-        });
-      }
-    });
-    */
-
   });
 
   /*
@@ -81,45 +57,68 @@ function Routes(router, hotspot, cjdns) {
   router.post('/api/register', function(req, res, next) {
     var userData = req.body;
     var userAddress = req.ip.replace('::ffff:', ''); // Incase of ipv4-mapped ipv6 addresses
+    
+    tunnelOpts = iptdConfig; 
    
     console.log(userAddress); 
     console.log('[/register] New registration:', userData);
 
-    function registerTunnel (userData) {
-      
-      // Let's create the hash and credentials
-      hotspot.createHash(256, function hashResult(err, password) {
-        if (err) {
-          err = new Error(err);
+    function registerTunnel (options, regData) {
+      regData.password = options.password;
+      var data = '';
+
+      var client = net.connect({ host: options.host || 'localhost', port: options.port || 4132 }, function() {
+        console.log('Connected to IPTd');
+        client.write(JSON.stringify(regData));
+      });
+
+      client.on('data', function(buffer) {
+        data += buffer;
+      });
+
+      client.on('end', function() {
+        console.log('Disconnected from IPTd');
+        
+        try {
+          data = JSON.parse(data);
+        } catch (err) {
+          console.error(err);
+
+          err = new Error('Something went wrong');
           err.status = 500;
           return next(err);
-        } else {
+        }
 
-          // Create credentials
-          iptunnel.create(password, userData, function newCred(err, serverCred) {
-            console.log(serverCred);
+        if (data.error || data.status === 0) {
+          var err = new Error(err || 'Something went wrong');
+          err.status = 500;
+          return next(err);
+        }
 
-            // Allow connection through IPTunnel
-            cjdns.IpTunnel_allowConnection(serverCred.publicKey, serverCred.ip6Prefix, serverCred.ip6Address, function(err, result) {
-              if (err || result.error !== 'none') {
-                var err = new Error(err || result.error);
-                err.status = 500;
-                return next(err);
-              }
-         
-              return res.render('register', {
-                cred: cjdns.cjdnsConf.publicKey,
-                err: false,
-                conf: hotspot.config
-              });
-            });
+        if (data.status === 1) {
+          console.log('Successfully registered new user to IPTd');
+
+          return res.render('register', {
+            cred: data.data.pubkey,
+            err: false,
+            conf: hotspot.config
           });
         }
       });
     }
+    
+    regData = {
+      misc: {
+        name: userData.name,
+        phone: userData.phone,
+        email: userData.email
+      }
+    };
 
     if (userData.pubkey) { // Check for manual entry
-      registerTunnel(userData);
+      regData.pubkey = userData.pubkey;
+
+      registerTunnel(tunnelOpts, regData);
     } else {
       // Get the PubKey for the user
       cjdns.NodeStore_nodeForAddr(userAddress, function nodeResult(err, data) {
@@ -128,9 +127,9 @@ function Routes(router, hotspot, cjdns) {
           err.status = 500;
           return next(err);
         } else if (data.result && data.result.key) {
-          userData.pubkey = data.result.key;
+          regData.pubkey = data.result.key;
 
-          registerTunnel(userData);
+          registerTunnel(tunnelOpts, regData);
         }
       });
     }
