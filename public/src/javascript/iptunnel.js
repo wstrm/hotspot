@@ -1,22 +1,33 @@
+"use strict";
+var HTTP_TIMEOUT = 1000;
+
 function checkCon (address, callback) {
   var http = new XMLHttpRequest();
-  this.count = 0;
+  var count = 0;
 
   function initCon() {
 
-    try { 
-      http.open('GET', address + '/api/ping', false);
-      http.send();
+    var httpTimeout = setTimeout(function() {
+      return callback('Failed to connect to address (' + count + ')');
+    }, HTTP_TIMEOUT);
 
-      if (http.responseText) {
-        clearInterval(conInt);
-        return callback(null, http.responseText);
-      }
+    try { 
+      http.open('GET', address + '/api/ping', true);
+
+      http.addEventListener('load', function () {
+        if (http.responseText && http.status === 200) {
+          clearInterval(conInt);
+          return callback(null, http.responseText);
+        }
+      });
+
+      http.send();
     } catch (err) {
-      callback('Failed to connect to address (' + this.count + ')');
+      callback('Failed to connect to address (' + count + ')');
+      return clearTimeout(httpTimeout);
     }
   
-    this.count++;
+    count++;
   }
   
   var conInt = setInterval(initCon, 5000);
@@ -35,8 +46,12 @@ function hypeInfo(info) {
     manPubKey.style.display = 'none';
 
     if (err) {
-      conErr.innerHTML = err; 
+      console.error(err);
+      
+      conErr.innerHTML = err;
     } else {
+      console.info('Successfully fetched IP address');
+      
       regForm.action = address + '/api/register';
       regForm.style.display = 'block';
       conStatus.style.display = 'none';
