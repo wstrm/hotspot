@@ -33,12 +33,36 @@ block content
 
   p Efter installationen har slutförts redigera filen:
     pre C:\Program Files (x86)\cjdns\cjdroute.conf
-    |  och ta bort kommentarstecken för ETHInterface, ändra även 
-    pre "bind": "eth0"
-    |  till rätt nätverksgränssnitt och 
-    pre "beacon": "0"
-    |  till 
-    pre "beacon": "2"
+    |  lägg till 
+    pre
+      | "10.3.14.1:10470": {
+      |   "password": "1sr309nghu5mrv6gqvxf7wuud0gxqg0",
+      |     "publicKey": "u63dx6kxqr4c41yx73drjnphnljwn8qht1uv5l3gg96sfcc3r1t0.k",
+      |     "name": "HTSIT Meshnet",
+      |     "location": "Hässleholm, Stobygatan 7"
+      | }
+    |  i  
+    em "connectTo"
+    |  mellan 
+    em "UDPInterface"
+    | .
+  p Exempel:
+    pre
+      | "UDPInterface":
+      | [
+      |   {
+      |     "bind": "0.0.0.0:12345",
+      |     "connectTo":
+      |     {
+      |       "10.3.14.1:10470": {
+      |         "password": "1sr309nghu5mrv6gqvxf7wuud0gxqg0",
+      |           "publicKey": "u63dx6kxqr4c41yx73drjnphnljwn8qht1uv5l3gg96sfcc3r1t0.k",
+      |           "name": "HTSIT Meshnet",
+      |           "location": "Hässleholm, Stobygatan 7"
+      |       }
+      |     }
+      |   }
+      | ]
 
   p Starta sedan om CJDNS i en kommandotolk (som administratör) med:
 
