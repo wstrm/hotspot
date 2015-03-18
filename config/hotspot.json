@@ -17,7 +17,7 @@
       "url": "/download/cjdns-linux.tar.gz",
       "name": "Download"
     },
-    "Linux": {
+    "Windows": {
       "url": "/download/cjdns-windows.exe",
       "name": "Download"
     }
