@@ -7,17 +7,14 @@ block content
   h3#what-is-cjdns Vad är CJDNS?
   
   p
-    b 
-      a(href='http://en.wikipedia.org/wiki/Cjdns') CJDNS
+    b CJDNS
     |  är ett nätverksprotokoll som implementerar ett krypterat IPv6 nätverk. Varje dator i nätverket måste köra CJDNS för att kunna ansluta.
 
   p
     | När du ansluter till nätverket med CJDNS ska du använda dig utav
     em  ETHInterface
-    |  med inställningen "bind: 2". Du kommer inte att komma åt Internet, utan istället 
-    a(href='https://wiki.projectmeshnet.org/Hyperboria') Hyperboria
-    | , för att komma åt Internet har vi ordnat en 
-    a(href='/iptunnel') tunnel
+    |  med inställningen "bind: 2". Du kommer inte att komma åt Internet, utan istället Hyperboria, för att komma åt Internet har vi ordnat en 
+    a(href='/iptunnel') IP tunnel
     | . Denna tunnel kan du ansluta till senare med hjälp av CJDNS.
 
   p
@@ -27,26 +24,27 @@ block content
 
   h4 Windows
 
-  p Ladda ner arkrivet för din processorarkitektur:
+  p Ladda ner den exekverbara filen: 
+    a(href='/download/cjdns-windows.exe') /download/cjdns-windows.exe
 
-  ul
-    li
-      a(href='/download/cjdns-windows_64.zip') 64-bit
-    li
-      a(href='/download/cjdns-windows_32.zip') 32-bit
+  p Kör 
+    em cjdns-windows.exe
+    |  och följ instruktionerna.
 
-  p Extrahera arkivet på en lämplig plats, starta sedan en kommandotolk (CMD) och skriv:
+  p Efter installationen har slutförts redigera filen:
+    pre C:\Program Files (x86)\cjdns\cjdroute.conf
+    |  och ta bort kommentarstecken för ETHInterface, ändra även 
+    pre "bind": "eth0"
+    |  till rätt nätverksgränssnitt och 
+    pre "beacon": "0"
+    |  till 
+    pre "beacon": "2"
+
+  p Starta sedan om CJDNS i en kommandotolk (som administratör) med:
 
   pre
-    | CD "mappen som arkivet extraherats till"
-
-  p Starta sedan CJDNS med:
-
-  pre cjdroute < cjdroute.conf
-
-  p 
-    | Klar! Vill du kompilera CJDNS själv så kan du läsa mer här: 
-    a(href='https://github.com/cjdelisle/cjdns/blob/master/doc/windows.md') https://github.com/cjdelisle/cjdns/blob/master/doc/windows.md
+    | net stop cjdns
+    | net start cjdns 
 
   h4 Linux
 
@@ -61,12 +59,12 @@ block content
 
   pre ./do && ./cjdroute --genconf > cjdroute.conf
 
-  p Öpnna cjdroute.conf och ta bort kommentarstecken för ETHInterface, spara och starta sedan CJDNS med:
+  p Öpnna cjdroute.conf och ta bort kommentarstecken för ETHInterface, ändra även 
+    pre "bind": "eth0"
+    |  till rätt nätverksgränssnitt och 
+    pre "beacon": "0"
+    |  till 
+    pre "beacon": "2"
 
+  p Starta sedan om CJDNS i en terminal med:
   pre ./cjdroute < cjdroute.conf
-
-  h4 Android
-
-  p 
-    | Det finns inget okomplicerat sätt att installera CJDNS på Android, med det går! Läs mer om det här: 
-    a(href='https://github.com/cjdelisle/cjdns/tree/master/contrib/android') https://github.com/cjdelisle/cjdns/tree/master/contrib/android
