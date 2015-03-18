@@ -36,7 +36,7 @@ function checkCon (address, callback) {
 }
 
 function hypeInfo(info) {
-  var address = 'http://[' + info.ip + ']:' + info.port;
+  var address = ('https:' == document.location.protocol ? 'https://' : 'http://') + '[' + info.ip + ']:' + info.port;
   var manPubKey = document.getElementById('man-pubkey');
   var conStatus = document.getElementById('con-status');
   var conErr = document.getElementById('con-error');
