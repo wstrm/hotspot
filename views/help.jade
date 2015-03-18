@@ -4,28 +4,6 @@ block content
   
   h2 Hjälp
 
-  h3#get-mac-address Hur får jag tag i min MAC-adress?
-  h4 Windows
-  p Skriv i kommandotolken (CMD):
-
-  pre ipconfig /all
-  p Kopiera sedan texten efter HWAddr som ungefär ser ut såhär (under trådlös adapter):
-
-  pre AB-BC-CD-DE-EF-FG
-  p Efter du har kopierat den, se till att du ersätter linjerna (-) med kolon (:), så blir det enklare för oss.
-
-  h4 Linux
-  p Skriv:
-
-  pre ifconfig | grep wlan0
-  p Kopiera texten efter HWaddr som ungefär ser ut såhär:
-
-  pre ab:bc:cd:de:ef:fg
-  h4 Android
-  p Under inställningar, gå till WiFi. Tryck på meny-knappen, välj Avancerat och kopiera MAC-adressen:
-
-  pre 11:22:33:44:55:66
-
   h3#what-is-cjdns Vad är CJDNS?
   
   p
@@ -38,7 +16,9 @@ block content
     em  ETHInterface
     |  med inställningen "bind: 2". Du kommer inte att komma åt Internet, utan istället 
     a(href='https://wiki.projectmeshnet.org/Hyperboria') Hyperboria
-    | , för att komma åt Internet har vi ordnat en tunnel. Denna tunnel kan du ansluta till senare med hjälp av CJDNS.
+    | , för att komma åt Internet har vi ordnat en 
+    a(href='/iptunnel') tunnel
+    | . Denna tunnel kan du ansluta till senare med hjälp av CJDNS.
 
   p
     | Läs instruktionerna nedan för att se hur man installerar.
@@ -51,16 +31,16 @@ block content
 
   ul
     li
-      a(href='#lalala') 64-bit
+      a(href='/download/cjdns-windows_64.zip') 64-bit
     li
-      a(href='#lelele') 32-bit
+      a(href='/download/cjdns-windows_32.zip') 32-bit
 
   p Extrahera arkivet på en lämplig plats, starta sedan en kommandotolk (CMD) och skriv:
 
   pre
     | CD "mappen som arkivet extraherats till"
 
-  p Starta sedan CJDNS med
+  p Starta sedan CJDNS med:
 
   pre cjdroute < cjdroute.conf
 
@@ -70,15 +50,14 @@ block content
 
   h4 Linux
 
-  p Börja med att hämta arkivet från GitHub med
+  p Börja med att hämta arkivet: 
+    a(href='/download/cjdns-linux.tar.gz') /download/cjdns-linux.tar.gz
 
-  pre wget https://github.com/cjdelisle/cjdns/archive/master.zip
+  p Placera arkivet i en lämplig mapp, extrahera sedan med:
 
-  p Placera arkrivet i en lämplig mapp, extrahera sedan
+  pre tar -zxvf cjdns-linux.tar.gz
 
-  pre unzip master.zip
-
-  p Gå in i den extraherade mappen, kompilera och konfigurera CJDNS med
+  p Gå in i den extraherade mappen, kompilera och konfigurera CJDNS med:
 
   pre ./do && ./cjdroute --genconf > cjdroute.conf
 
@@ -91,14 +70,3 @@ block content
   p 
     | Det finns inget okomplicerat sätt att installera CJDNS på Android, med det går! Läs mer om det här: 
     a(href='https://github.com/cjdelisle/cjdns/tree/master/contrib/android') https://github.com/cjdelisle/cjdns/tree/master/contrib/android
-  
-  h3#get-cjdns-config Hur laddar jag upp min CJDNS-konfigurationsfil?
-
-  p Se först till att du har 
-  a(href='/help/install-cjdns') installerat och konfigurerat CJDNS.
-
-  p Välj nu cjdroute.conf-filen när du ska ladda upp.
-
-  p När du har tryckt på skicka så kommer du att få en ny fil, ersätt din nuvarande cjdroute.conf med den nya.
-
-  p Starta nu CJDNS.

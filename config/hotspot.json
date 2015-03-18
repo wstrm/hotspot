@@ -14,7 +14,7 @@
   },
   "download": {
     "Linux": {
-      "url": "/download/linux.tar.gz",
+      "url": "/download/cjdns-linux.tar.gz",
       "name": "Download"
     }
   }
